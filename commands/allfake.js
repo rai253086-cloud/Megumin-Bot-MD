@@ -10,5 +10,16 @@ var gpo = "https://chat.whatsapp.com/JrO1REb8ESRAKgRQKaF8KC?mode=ac_t"
 
 global.redes = [canal, canal2, gpo][Math.floor(Math.random() * 3)]
 
-global.rcanal = {contextInfo: {forwardingScore: 2026, isForwarded: true, externalAdReply: {title: botname, body: dev, sourceUrl: redes, thumbnailUrl: icon}}}
+    m.rcanal = {
+        contextInfo: {
+            forwardingScore: 1,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: '120363350554513092@newsletter',
+                newsletterName: botname,
+                serverMessageId: -1,
+            }
+        }
+    }
+/*m.rcanal = {contextInfo: {forwardingScore: 2026, isForwarded: true, externalAdReply: {title: botname, body: dev, sourceUrl: redes, thumbnailUrl: icon}}}*/
 }
