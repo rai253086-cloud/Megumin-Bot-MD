@@ -96,8 +96,21 @@ const separator = match ? match[0] : '';
         menu += `> _*${cmd.desc}*_\n\n`;
       });
     }
-
- await client.sendMessage(m.chat, {
+await client.sendMessage(m.chat, {
+    image: { url: banner },
+    caption: menu.trim(),
+    contextInfo: {
+        mentionedJid: [owner],
+        forwardingScore: 999,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: canalId,
+            newsletterName: canalName,
+            serverMessageId: -1,
+        }
+    }
+}, { quoted: m })
+/* await client.sendMessage(m.chat, {
 document: await (await fetch(banner)).buffer(),
 fileName: '^3.0.0 | Lastest 🥧',
 mimetype: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -124,7 +137,7 @@ renderLargerThumbnail: true,
 mediaUrl: null,
 sourceUrl: null,
 }
-}}, { quoted: m })
+}}, { quoted: m })*/
 
   } catch (e) {
     await m.reply(`${msgglobal + e}`)
