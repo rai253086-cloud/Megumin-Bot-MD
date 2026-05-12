@@ -145,34 +145,7 @@ async function loadBots() {
   setTimeout(loadBots, 60 * 1000)
 }
 
-;(async () => { await loadBots() })()
-
-const realizarLimpieza = () => {
-  console.log(chalk.cyanBright('[ ✿ ] Ejecutando revisión de inactividad...'))
-  const users = global.db?.data?.users
-  if (!users) return
-  const quinceDias = 15 * 24 * 60 * 60 * 1000
-  const ahora = Date.now()
-  let contador = 0
-
-  Object.keys(users).forEach(jid => {
-    const user = users[jid]
-    const ultimaVez = user.lastSeen ? new Date(user.lastSeen).getTime() : 0
-    if (ahora - ultimaVez > quinceDias) {
-      const esOwner = global.owner?.some(owner => jid.includes(owner))
-      if (!esOwner && jid !== global.client?.user?.id) {
-        delete global.db.data.users[jid]
-        contador++
-      }
-    }
-  })
-
-  if (contador > 0) {
-    global.saveDatabase?.()
-    try { global.db.conn?.prepare('VACUUM').run() } catch (e) {}
-    console.log(chalk.greenBright(`[ ✿ ] Limpieza terminada: ${contador} usuarios inactivos eliminados.`))
-  }
-}
+(async () => { await loadBots() })()
 
 let LOGIN_METHOD = null
 
@@ -228,11 +201,17 @@ async function startBot() {
   client.ev.on("connection.update", async (update) => {
     const { qr, connection, lastDisconnect, isNewLogin, receivedPendingNotifications } = update
 
-    if (qr && LOGIN_METHOD === '1') {
-      console.clear()
-      console.log(chalk.cyan.bold('📸 ESCANEA ESTE CÓDIGO QR\n'))
-      qrcode.generate(qr, { small: true })
-    }
+if (qr) {
+  if (LOGIN_METHOD === '1') {
+    console.clear()
+    console.log(chalk.cyan.bold('📸 ESCANEA ESTE CÓDIGO QR\n'))
+    qrcode.generate(qr, { small: true })
+  } else if (!LOGIN_METHOD) {
+    log.warning('Sesión inválida, regenerando QR de emergencia...')
+    console.clear()
+    qrcode.generate(qr, { small: true })
+  }
+}
 
     if (connection === "close") {
       const reason = lastDisconnect?.error?.output?.statusCode || 0
@@ -275,8 +254,6 @@ async function startBot() {
         borderStyle: 'round', borderColor: 'green',
         title: chalk.green.bold('● CONEXIÓN ●'), titleAlignment: 'center', float: 'center'
       }))
-      setTimeout(realizarLimpieza, 10000)
-      setInterval(realizarLimpieza, 24 * 60 * 60 * 1000)
     }
 
     if (isNewLogin) log.info("Nuevo dispositivo detectado")
@@ -372,7 +349,7 @@ function hasMainSession() {
   if (!fs.existsSync(credsPath)) return false
   try {
     const creds = JSON.parse(fs.readFileSync(credsPath))
-    return !!creds.registered
+    return !!(creds.registered && creds.me?.id)
   } catch {
     return false
   }
