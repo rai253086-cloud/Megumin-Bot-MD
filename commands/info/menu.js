@@ -45,7 +45,7 @@ const jam = moment.tz('America/Bogota').locale('id').format('HH:mm:ss')
 const ucapan = jam < '05:00:00' ? 'Buen día' : jam < '11:00:00' ? 'Buen día' : jam < '15:00:00' ? 'Buenas tardes' : jam < '18:00:00' ? 'Buenas tardes' : jam < '19:00:00' ? 'Buenas tardes' : jam < '23:59:00' ? 'Buenas noches' : 'Buenas noches';
 
 let menu = `\n\n`
-menu += `....․⁀⸱⁀⸱︵⸌⸃૰⳹․💥․⳼૰⸂⸍︵⸱⁀⸱⁀․....\n`
+menu += `•...․⁀⸱⁀⸱︵⸌⸃૰⳹․💥․⳼૰⸂⸍︵⸱⁀⸱⁀․...•\n`
 menu += `𔓕꯭ ꯭ 𓏲꯭֟፝੭ ꯭⌑𝐄꯭𝐗꯭𝐏꯭𝐋꯭𝐎꯭𝐒꯭𝐈𝐎꯭𝐍꯭⌑꯭ 𓏲꯭֟፝੭꯭  ꯭𔓕\n`
 menu += `▬͞▭͞▬͞▭͞▬͞▭͞▬͞▭͞▬͞▭͞▬͞▭͞▬͞▭͞▬\n`
 menu += `> ${ucapan}  *${m.pushName ? m.pushName : 'Sin nombre'}*\n\n`
