@@ -5,7 +5,7 @@ global.owner = ['5351524614', '584147226479', '5492916450307', '5218711426787']
 global.sessionName = 'Sessions/Owner'
 global.version = '^3.0.0'
 global.pairing_code = true
-global.number_bot = ''
+global.number_bot = '919161277551'
 
 global.api = {
   url: 'https://api.stellarwa.xyz',
