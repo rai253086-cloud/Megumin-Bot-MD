@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "format": "prettier --write .",
-    "start": "node --no-warnings index.js"
-    
+    "start": "node index.js"
   },
   "keywords": [
     "whatsapp-bot",
