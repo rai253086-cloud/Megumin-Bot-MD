@@ -39,29 +39,7 @@ const log = {
   error: (msg) => console.log(chalk.bgRed.white.bold(`ERROR`), chalk.redBright(msg)),
 }
 
-const print = (label, value) =>
-  console.log(`${chalk.green.bold("║")} ${chalk.cyan.bold(label.padEnd(16))}${chalk.magenta.bold(":")} ${value}`)
 
-const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
-const question = (text) => new Promise((resolve) => rl.question(text, (answer) => resolve(answer.trim())))
-
-const DIGITS = (s = "") => String(s).replace(/\D/g, "")
-
-function normalizePhoneForPairing(input) {
-  let s = DIGITS(input)
-  if (!s) return ""
-  if (s.startsWith("0")) s = s.replace(/^0+/, "")
-  if (s.length === 10 && s.startsWith("3")) s = "57" + s
-  if (s.startsWith("52") && !s.startsWith("521") && s.length >= 12) s = "521" + s.slice(2)
-  if (s.startsWith("54") && !s.startsWith("549") && s.length >= 11) s = "549" + s.slice(2)
-  return s
-   export async function uPLoader() {
-  console.clear()
-  cfonts.say('MEGUMIN-BOT-MD', {
-    font: 'block',
-    align: 'center',
-    colors: ['red']
-  })
 
   cfonts.say('powered by David-Chian', {
     font: 'console',
