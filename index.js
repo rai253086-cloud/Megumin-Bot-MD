@@ -56,6 +56,7 @@ function normalizePhoneForPairing(input) {
 
 export async function uPLoader() {
   console.clear()
+
   cfonts.say('MEGUMIN-BOT-MD', {
     font: 'block',
     align: 'center',
@@ -72,57 +73,6 @@ export async function uPLoader() {
 
   return process.env.LOGIN_METHOD || "2"
 }
-  const TOTAL_TIME = 5000
-  const STEPS = 100
-  const BAR_SIZE = 40
-  const TITLE = 'MEGUMIN-BOT-MD'
-  const SUB = 'powered by David-Chian'
-
-  let typedTitle = ''
-  let typedSub = ''
-
-  for (let i = 0; i <= STEPS; i++) {
-    const percent = i
-    const filled = Math.floor((percent / 100) * BAR_SIZE)
-    const empty = BAR_SIZE - filled
-
-    let color
-    if (percent < 30) color = chalk.red
-    else if (percent < 60) color = chalk.yellow
-    else if (percent < 90) color = chalk.cyan
-    else color = chalk.green
-
-    const bar = color('■'.repeat(filled)) + chalk.gray('□'.repeat(empty))
-
-    if (typedTitle.length < TITLE.length) typedTitle += TITLE[typedTitle.length]
-    if (percent > 40 && typedSub.length < SUB.length) typedSub += SUB[typedSub.length]
-
-    process.stdout.write(
-      '\x1b[2J\x1b[0f' +
-      chalk.cyan.bold('Inicializando sistema...\n\n') +
-      `${chalk.white('Cargando datos:')} ${bar} ${chalk.bold(percent + '%')}\n\n` +
-      chalk.red.bold(typedTitle) + '\n' +
-      chalk.blue(typedSub)
-    )
-
-    await new Promise(r => setTimeout(r, TOTAL_TIME / STEPS))
-  }
-
-  console.clear()
-  cfonts.say('MEGUMIN-BOT-MD', { font: 'block', align: 'center', colors: ['red'] })
-  cfonts.say('powered by David-Chian', { font: 'console', align: 'center', gradient: ['blue', 'cyan'] })
-
-  console.log(
-    chalk.yellow.bold('\nSeleccione el método de inicio:\n') +
-    chalk.green('1') + ' ➜ Código QR\n' +
-    chalk.green('2') + ' ➜ Código de 8 dígitos\n'
-  )
-
-  let opt
-  while (!['1', '2'].includes(opt)) {
-    opt = await question(chalk.magentaBright('➤ Opción: '))
-  }
-  return opt
 }
 
 const BOT_TYPES = [
