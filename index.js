@@ -15,7 +15,6 @@ import pino from "pino";
 import crypto from 'crypto';
 import chalk from "chalk";
 import fs from "fs";
-import path from "path";
 import boxen from 'boxen';
 import readline from "readline";
 import os from "os";
@@ -40,7 +39,7 @@ const log = {
 }
 
 const print = (label, value) =>
-  console.log(`${chalk.green.bold("║")} ${chalk.cyan.bold(label.padEnd(16))}${chalk.magenta.bold(":")} ${value}`)
+  
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 const question = (text) => new Promise((resolve) => rl.question(text, (answer) => resolve(answer.trim())))
@@ -58,6 +57,23 @@ function normalizePhoneForPairing(input) {
 }
 
 export async function uPLoader() {
+  console.clear()
+  cfonts.say('MEGUMIN-BOT-MD', {
+    font: 'block',
+    align: 'center',
+    colors: ['red']
+  })
+
+  cfonts.say('powered by David-Chian', {
+    font: 'console',
+    align: 'center',
+    gradient: ['blue', 'cyan']
+  })
+
+  console.log(chalk.green("Railway detected - Pairing Mode"))
+
+  return process.env.LOGIN_METHOD || "2"
+}
   const TOTAL_TIME = 5000
   const STEPS = 100
   const BAR_SIZE = 40
@@ -182,8 +198,14 @@ async function startBot() {
     console.clear()
     if (LOGIN_METHOD === '2') {
       console.log(chalk.bold.redBright('\nIngrese su número de WhatsApp\n') + chalk.yellowBright('Ejemplo: +57301XXXXXXX\n'))
-      const fixed = await question(chalk.magentaBright('➤ Número: '))
-      const phoneNumber = normalizePhoneForPairing(fixed)
+      const phoneNumber = normalizePhoneForPairing(
+  process.env.PHONE_NUMBER || ""
+)
+
+if (!phoneNumber) {
+  console.log(chalk.red("PHONE_NUMBER variable not found"))
+  process.exit(1)
+}
       try {
         const pairing = await client.requestPairingCode(phoneNumber)
         console.log(chalk.bgMagenta.white.bold('\n CÓDIGO DE VINCULACIÓN ') + '\n\n' + chalk.white.bold(pairing) + '\n')
@@ -367,7 +389,7 @@ function clockString(ms) {
   global.loadDatabase()
   console.log(chalk.gray('[ ✿  ]  Base de datos cargada correctamente.'))
   if (!fs.existsSync('./Sessions/Owner/creds.json')) {
-    LOGIN_METHOD = await uPLoader()
+  LOGIN_METHOD = process.env.LOGIN_METHOD || "2"
   }
 
   await startBot()
