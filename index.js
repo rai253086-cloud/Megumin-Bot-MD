@@ -16,7 +16,6 @@ import crypto from 'crypto';
 import chalk from "chalk";
 import fs from "fs";
 import boxen from 'boxen';
-import readline from "readline";
 import os from "os";
 import qrcode from "qrcode-terminal";
 import parsePhoneNumber from "awesome-phonenumber";
@@ -42,7 +41,6 @@ const print = (label, value) =>
   
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
-const question = (text) => new Promise((resolve) => rl.question(text, (answer) => resolve(answer.trim())))
 
 const DIGITS = (s = "") => String(s).replace(/\D/g, "")
 
