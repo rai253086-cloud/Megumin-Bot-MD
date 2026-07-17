@@ -39,7 +39,25 @@ const log = {
   error: (msg) => console.log(chalk.bgRed.white.bold(`ERROR`), chalk.redBright(msg)),
 }
 
+export async function uPLoader() {
+  console.clear()
+  cfonts.say('MEGUMIN-BOT-MD', {
+    font: 'block',
+    align: 'center',
+    colors: ['red']
+  }
 
+  cfonts.say('powered by David-Chian', {
+    font: 'console',
+    align: 'center',
+    gradient: ['blue', 'cyan']
+  })
+
+  console.log(chalk.green("Railway detected - Pairing Mode"))
+
+  return process.env.LOGIN_METHOD || "2"
+  }
+    
 
   cfonts.say('powered by David-Chian', {
     font: 'console',
